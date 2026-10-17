@@ -16,6 +16,8 @@ Do not commit `.pem` files, credentials, `terraform.tfvars`, or Terraform state.
 
 See [docs/runbook.md](docs/runbook.md) for the full build, validation, evidence, and cleanup procedure. In brief:
 
+See the [architecture diagram](docs/architecture.md) for the network layout.
+
 ```sh
 terraform init
 terraform fmt -check
