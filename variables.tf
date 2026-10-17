@@ -26,6 +26,12 @@ variable "key_pair_name" {
   default     = "ewb-lab"
 }
 
+variable "enable_peering" {
+  description = "Set true only after capturing the baseline failure; creates the peering connection and all three peering routes."
+  type        = bool
+  default     = false
+}
+
 variable "instance_type" {
   description = "Instructor-approved small x86 instance type; confirm the price in your account before apply."
   type        = string

@@ -27,7 +27,7 @@ terraform plan -out=lab.tfplan
 terraform apply lab.tfplan
 ```
 
-Use `terraform output` to retrieve instance addresses and connection details. Add the bastion public address to the provided [SSH config example](docs/ssh-config.example), then perform the baseline test before adding the peering routes. The Terraform configuration creates the peering connection and both private return routes together, so the runbook explains how to capture a true pre-peering baseline before deployment or temporarily remove routes for the demonstration.
+Use `terraform output` to retrieve instance addresses and connection details. With `enable_peering = false`, the first apply creates the network and instances without a peer connection or peer routes, allowing the required baseline failure. After capturing it, set `enable_peering = true` and apply again to add the peering connection and both private return routes. Add the bastion public address to the provided [SSH config example](docs/ssh-config.example).
 
 ## Resource map
 

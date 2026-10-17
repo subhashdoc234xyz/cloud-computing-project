@@ -42,8 +42,8 @@ output "instance_inventory" {
 }
 
 output "peering_connection_id" {
-  description = "Active VPC peering connection ID."
-  value       = aws_vpc_peering_connection.a_b.id
+  description = "Active VPC peering connection ID, or null during the pre-peering baseline phase."
+  value       = var.enable_peering ? aws_vpc_peering_connection.a_b[0].id : null
 }
 
 output "route_table_ids" {

@@ -106,6 +106,7 @@ resource "aws_route_table_association" "b_private" {
 }
 
 resource "aws_vpc_peering_connection" "a_b" {
+  count       = var.enable_peering ? 1 : 0
   vpc_id      = aws_vpc.a.id
   peer_vpc_id = aws_vpc.b.id
   auto_accept = true
@@ -113,21 +114,24 @@ resource "aws_vpc_peering_connection" "a_b" {
 }
 
 resource "aws_route" "a_public_to_b" {
+  count                     = var.enable_peering ? 1 : 0
   route_table_id            = aws_route_table.a_public.id
   destination_cidr_block    = aws_vpc.b.cidr_block
-  vpc_peering_connection_id = aws_vpc_peering_connection.a_b.id
+  vpc_peering_connection_id = aws_vpc_peering_connection.a_b[0].id
 }
 
 resource "aws_route" "a_private_to_b" {
+  count                     = var.enable_peering ? 1 : 0
   route_table_id            = aws_route_table.a_private.id
   destination_cidr_block    = aws_vpc.b.cidr_block
-  vpc_peering_connection_id = aws_vpc_peering_connection.a_b.id
+  vpc_peering_connection_id = aws_vpc_peering_connection.a_b[0].id
 }
 
 resource "aws_route" "b_private_to_a" {
+  count                     = var.enable_peering ? 1 : 0
   route_table_id            = aws_route_table.b_private.id
   destination_cidr_block    = aws_vpc.a.cidr_block
-  vpc_peering_connection_id = aws_vpc_peering_connection.a_b.id
+  vpc_peering_connection_id = aws_vpc_peering_connection.a_b[0].id
 }
 
 resource "aws_security_group" "bastion" {
